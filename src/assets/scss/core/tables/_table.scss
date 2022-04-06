@@ -2,7 +2,6 @@
 // Table
 //
 
-
 // General styles
 
 .table {
@@ -33,7 +32,6 @@
         white-space: nowrap;
     }
 
-
     // Vetical align table content
 
     &.align-items-center {
@@ -43,16 +41,14 @@
         }
     }
 
+    // Styles for dark table
 
-   // Styles for dark table
-
-   .thead-dark {
+    .thead-dark {
         th {
             background-color: $table-dark-head-bg;
             color: $table-dark-head-color;
         }
     }
-
 
     // Styles for light table
 
@@ -62,8 +58,23 @@
             color: $table-head-color;
         }
     }
-}
 
+    &.table-dark {
+        .dropdown-menu {
+            background-color: $table-dark-head-bg;
+            border-color: $table-dark-accent-bg;
+
+            li {
+                background-color: $table-dark-head-bg;
+                color: $table-dark-head-color;
+
+                &:hover {
+                    background-color: $table-dark-border-color;
+                }
+            }
+        }
+    }
+}
 
 // Add transition for hover state
 
@@ -72,7 +83,6 @@
         @include transition($transition-base);
     }
 }
-
 
 // Flush tables
 
@@ -101,7 +111,6 @@
         }
     }
 }
-
 
 // Tables inside cards
 

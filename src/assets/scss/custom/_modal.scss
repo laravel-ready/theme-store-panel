@@ -3,3 +3,14 @@
 //
 
 @import "../core/modals/modal";
+
+@media (min-width: 576px) {
+    .modal {
+        &.modal-lg {
+            .modal-dialog {
+                max-width: 500px;
+                margin: 1.75rem auto;
+            }
+        }
+    }
+}
