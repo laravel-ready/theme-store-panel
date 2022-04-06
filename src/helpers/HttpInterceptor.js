@@ -5,12 +5,8 @@ const token = store.get("userAccessToken");
 
 const axiosInstance = axios.create({
     defaults: {
-        baseURL: window.themeStorePrivateApi,
+        baseURL: window.themeStoreApiUrl,
         timeout: 30000,
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
     },
 });
 
