@@ -1,9 +1,15 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 import DashboardLayout from "@/layout/DashboardLayout";
+import AuthLayout from "@/layout/AuthLayout";
 
 import Dashboard from "../views/Dashboard.vue";
 import Themes from "../views/Themes.vue";
+import Categories from "../views/Categories.vue";
+import Login from "../views/Login.vue";
+
+import store from "store";
+
 const routes = [
     {
         path: "/",
@@ -20,6 +26,23 @@ const routes = [
                 name: "themes",
                 components: { default: Themes },
             },
+            {
+                path: "/categories",
+                name: "categories",
+                components: { default: Categories },
+            },
+        ],
+    },
+    {
+        path: "/",
+        redirect: "login",
+        component: AuthLayout,
+        children: [
+            {
+                path: "/login",
+                name: "login",
+                components: { default: Login },
+            },
         ],
     },
 ];
@@ -29,6 +52,12 @@ const router = createRouter({
     mode: "history",
     linkActiveClass: "active",
     routes,
+});
+
+router.beforeEach(async (to) => {
+    if ((!store.get("userAccessToken") || !store.get("user")) && to.name !== "login") {
+        return { name: "login" };
+    }
 });
 
 export default router;

@@ -22,6 +22,7 @@ import ArgonDashboard from "./plugins/argon-dashboard";
 import "element-plus/theme-chalk/index.css";
 
 const appInstance = createApp(App);
+
 appInstance.use(router);
 appInstance.use(ArgonDashboard);
 appInstance.mount("#app");

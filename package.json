@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --port=8081",
+    "serve": "vue-cli-service serve --port=3000",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -14,8 +14,11 @@
     "chart.js": "^2.9.4",
     "core-js": "3.21.1",
     "element-plus": "2.1.7",
+    "filepond": "^4.30.3",
+    "filepond-plugin-image-preview": "^4.6.11",
     "google-maps": "4.3.3",
     "nouislider": "15.5.1",
+    "store": "^2.0.12",
     "vue": "3.2.31",
     "vue-router": "4.0.14",
     "vue-toastification": "1.7.14"
