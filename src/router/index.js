@@ -5,8 +5,9 @@ import AuthLayout from "@/layout/AuthLayout";
 
 import Dashboard from "../views/Dashboard.vue";
 import Themes from "../views/Themes.vue";
-import Categories from "../views/Categories.vue";
 import Login from "../views/Login.vue";
+import Categories from "../views/Category/Categories.vue";
+import Category from "../views/Category/Category.vue";
 
 import store from "store";
 
@@ -30,6 +31,11 @@ const routes = [
                 path: "/categories",
                 name: "categories",
                 components: { default: Categories },
+            },
+            {
+                path: "/categories/:id",
+                name: "category",
+                component: Category,
             },
         ],
     },
