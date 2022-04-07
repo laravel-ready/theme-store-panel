@@ -1,3 +1,5 @@
+import baseUrl from "./BaseUrl";
+
 import axios from "axios";
 import store from "store";
 
@@ -14,8 +16,6 @@ if (token) {
     axiosInstance.defaults.headers.Authorization = `Bearer ${token}`;
 }
 
-if (process.env.NODE_ENV === "development") {
-    axiosInstance.defaults.baseURL = "http://localhost:8000";
-}
+axiosInstance.defaults.baseURL = baseUrl;
 
 export default axiosInstance;
