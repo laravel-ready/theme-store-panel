@@ -1,0 +1,11 @@
+// filepond for file upload
+
+@import "~filepond/dist/filepond.min.css";
+@import "~filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+
+.filepond--root {
+    .filepond--panel-root {
+        background-color: $input-focus-bg !important;
+        border: 1px dashed $gray-400 !important;
+    }
+}

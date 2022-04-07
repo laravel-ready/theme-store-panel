@@ -5,9 +5,11 @@
                 <span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
             </a>
         </li>
+
         <li class="page-item" :class="{ active: value === item }" :key="item" v-for="item in range(minPage, maxPage)">
             <a class="page-link" @click="changePage(item)">{{ item }}</a>
         </li>
+
         <li class="page-item next-page" :class="{ disabled: value === totalPages }">
             <a class="page-link" aria-label="Next" @click="nextPage">
                 <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
@@ -15,6 +17,7 @@
         </li>
     </ul>
 </template>
+
 <script>
 export default {
     name: "base-pagination",
@@ -50,6 +53,7 @@ export default {
             description: "Pagination alignment (e.g center|start|end)",
         },
     },
+
     computed: {
         totalPages() {
             if (this.pageCount > 0) return this.pageCount;
@@ -90,11 +94,13 @@ export default {
             }
         },
     },
+
     data() {
         return {
             defaultPagesToDisplay: 5,
         };
     },
+
     methods: {
         range(min, max) {
             let arr = [];
@@ -103,20 +109,24 @@ export default {
             }
             return arr;
         },
+
         changePage(item) {
             this.$emit("input", item);
         },
+
         nextPage() {
             if (this.value < this.totalPages) {
                 this.$emit("input", this.value + 1);
             }
         },
+
         prevPage() {
             if (this.value > 1) {
                 this.$emit("input", this.value - 1);
             }
         },
     },
+
     watch: {
         perPage() {
             this.$emit("input", 1);
