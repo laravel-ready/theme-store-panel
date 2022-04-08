@@ -110,42 +110,42 @@ export default {
             },
         };
     },
+
     mounted() {
-        this.getCategory();
+        this.getCategory(true);
     },
+
     methods: {
         // setup and create filepond instance
-        initFilepond() {
-            if (this.pond) {
-                return false;
-            }
+        initFilepond(firstInit = false) {
+            if (firstInit) {
+                const token = store.get("userAccessToken");
 
-            const token = store.get("userAccessToken");
-
-            FilePond.setOptions({
-                instantUpload: true,
-                allowProcess: false,
-                maxFiles: 1,
-                server: {
-                    url: `${baseUrl}/api/theme-store/private/v1/category/${this.category.id}/upload`,
-                    process: {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
+                FilePond.setOptions({
+                    instantUpload: true,
+                    allowProcess: false,
+                    maxFiles: 1,
+                    server: {
+                        url: `${baseUrl}/api/theme-store/private/v1/category/${this.category.id}/upload`,
+                        process: {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
                         },
                     },
-                },
-            });
+                });
 
-            this.pond = FilePond.create({
-                multiple: false,
-                name: "filepond",
-            });
+                this.pond = FilePond.create({
+                    multiple: false,
+                    name: "filepond",
+                });
 
-            document.querySelector("#pond-container").appendChild(this.pond.element);
+                document.querySelector("#pond-container").appendChild(this.pond.element);
+            }
         },
 
         // get current category
-        getCategory() {
+        getCategory(firstInit) {
             CategoryService.get(this.categoryId).then((response) => {
                 this.category = response.data.result;
 
@@ -154,7 +154,7 @@ export default {
                     description: response.data.result.description,
                 };
 
-                this.initFilepond();
+                this.initFilepond(firstInit);
             });
         },
 
