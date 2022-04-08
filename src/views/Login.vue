@@ -20,9 +20,7 @@
                         >
                         </base-input>
 
-                        <base-checkbox class="custom-control-alternative">
-                            <span class="text-muted">Remember me</span>
-                        </base-checkbox>
+                        // <base-checkbox class="custom-control-alternative"> // <span class="text-muted">Remember me</span> // </base-checkbox>
 
                         <div class="text-center">
                             <button class="btn btn-primary mt-3" type="submit">Sign in</button>

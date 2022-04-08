@@ -63,6 +63,8 @@ const router = createRouter({
 router.beforeEach(async (to) => {
     if ((!store.get("userAccessToken") || !store.get("user")) && to.name !== "login") {
         return { name: "login" };
+    } else if (store.get("userAccessToken") && store.get("user") && to.name === "login") {
+        return { name: "dashboard" };
     }
 });
 
