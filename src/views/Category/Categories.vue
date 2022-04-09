@@ -73,8 +73,10 @@
                     <categories-table
                         title="Category List"
                         :content="categoriesData"
-                        @changePage="loadCategories"
+                        :isLoading="categoriesLoading"
+                        @pageChanged="pageChanged"
                         @deleteItem="deleteCategory"
+                        @featuredItem="setFeaturedCategory"
                     ></categories-table>
                 </div>
             </div>
@@ -103,6 +105,7 @@ export default {
         return {
             pond: null,
 
+            categoriesLoading: false,
             categoriesData: [],
 
             categoryModel: {
@@ -139,9 +142,11 @@ export default {
 
         // load categories
         loadCategories(page = 1) {
-            CategoryService.getAll(page).then((response) => {
-                this.categoriesData = response.data.result;
-            });
+            if (!this.categoriesLoading) {
+                CategoryService.getAll(page).then((response) => {
+                    this.categoriesData = response.data.result;
+                });
+            }
         },
 
         // show category form modal
@@ -188,6 +193,20 @@ export default {
             CategoryService.delete(id).then(() => {
                 this.loadCategories();
             });
+        },
+
+        // set as featured or unset
+        setFeaturedCategory(id, state) {
+            CategoryService.patch(id, {
+                featured: state,
+            });
+        },
+
+        // on page changed update the categories
+        pageChanged(page) {
+            if (page !== this.categoriesData.current_page) {
+                this.loadCategories(page);
+            }
         },
     },
 };

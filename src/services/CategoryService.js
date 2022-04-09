@@ -19,6 +19,10 @@ export default {
         return axiosInstance.put(`${endpoint}/${id}`, data);
     },
 
+    patch(id, data) {
+        return axiosInstance.patch(`${endpoint}/${id}`, data);
+    },
+
     delete(id) {
         return axiosInstance.delete(`${endpoint}/${id}`);
     },

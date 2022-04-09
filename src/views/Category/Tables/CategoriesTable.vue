@@ -33,15 +33,16 @@
                 <template v-slot:columns>
                     <th>Category</th>
                     <th>Description</th>
+                    <th>Is Featured</th>
                     <th></th>
                 </template>
 
                 <template v-slot:default="row">
                     <th scope="row">
                         <div class="media align-items-center">
-                            <a href="#" class="avatar rounded-circle mr-3">
+                            <router-link :to="{ name: 'category', params: { id: row.item.id } }" class="avatar rounded-circle mr-3">
                                 <img :src="row.item.image ? row.item.image : 'img/theme/default-placeholder.png'" alt="Category image" />
-                            </a>
+                            </router-link>
 
                             <div class="media-body">
                                 <span class="name mb-0 text-sm">
@@ -54,7 +55,11 @@
                     </th>
 
                     <td class="text-break text-truncate" style="width: 100px">
-                        {{ row.item.description.length > 150 ? row.item.description.substring(0, 150) + "..." : row.item.description }}
+                        {{ row.item.description.length > 50 ? row.item.description.substring(0, 50) + "..." : row.item.description }}
+                    </td>
+
+                    <td>
+                        <toggle v-model="row.item.featured" @change="featuredItem(row.item)"></toggle>
                     </td>
 
                     <td class="text-right">
@@ -85,9 +90,15 @@
         </div>
     </div>
 </template>
+
 <script>
+import Toggle from "@vueform/toggle";
+
 export default {
     name: "categories-table",
+    components: {
+        Toggle,
+    },
     props: {
         type: {
             type: String,
@@ -98,6 +109,10 @@ export default {
             type: Number,
             default: 1,
         },
+        isLoading: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     data() {
@@ -107,12 +122,17 @@ export default {
     methods: {
         // navigate to the selected page
         changePage(page) {
-            this.$emit("change-page", page);
+            this.$emit("page-changed", page);
         },
 
         // delete item event
         deleteItem(id) {
             this.$emit("delete-item", id);
+        },
+
+        // update item featured statue
+        featuredItem(item) {
+            this.$emit("featured-item", item.id, item.featured);
         },
     },
 };
