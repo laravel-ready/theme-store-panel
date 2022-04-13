@@ -169,7 +169,7 @@ export default {
 
                 FilePond.setOptions({
                     server: {
-                        url: `${baseUrl}/api/theme-store/private/v1/category/${categoryId}/upload`,
+                        url: `${baseUrl}/api/theme-store/private/v1/categories/${categoryId}/upload`,
                         process: {
                             headers: {
                                 Authorization: `Bearer ${token}`,

@@ -1,6 +1,6 @@
 import axiosInstance from "../helpers/HttpInterceptor";
 
-const endpoint = "api/theme-store/private/v1/categories";
+const endpoint = "api/theme-store/private/v1/themes";
 
 export default {
     getAll(page) {
