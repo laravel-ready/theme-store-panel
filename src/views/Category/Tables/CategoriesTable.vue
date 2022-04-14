@@ -63,15 +63,18 @@
                     </td>
 
                     <td class="text-right">
-                        <base-dropdown class="dropdown" position="right">
-                            <template v-slot:title>
-                                <a class="btn btn-sm btn-icon-only text-light" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                            </template>
-
-                            <li class="dropdown-item" @click="deleteItem(row.item.id)">Delete</li>
-                        </base-dropdown>
+                        <button class="btn btn-delete" @click="deleteItem(row.item.id)">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                version="1.1"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" />
+                            </svg>
+                        </button>
                     </td>
                 </template>
             </base-table>
