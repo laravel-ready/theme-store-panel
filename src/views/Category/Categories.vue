@@ -86,7 +86,6 @@
 
 <script>
 import CategoriesTable from "./Tables/CategoriesTable";
-import baseUrl from "./../../helpers/BaseUrl";
 
 import * as FilePond from "filepond";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
@@ -169,7 +168,7 @@ export default {
 
                 FilePond.setOptions({
                     server: {
-                        url: `${baseUrl}/api/theme-store/private/v1/categories/${categoryId}/upload`,
+                        url: CategoryService.getImageUploadEndpoint(categoryId),
                         process: {
                             headers: {
                                 Authorization: `Bearer ${token}`,

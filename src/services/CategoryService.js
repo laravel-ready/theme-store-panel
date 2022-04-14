@@ -1,4 +1,5 @@
 import axiosInstance from "../helpers/HttpInterceptor";
+import baseUrl from "./../helpers/BaseUrl";
 
 const endpoint = "api/theme-store/private/v1/categories";
 
@@ -25,5 +26,9 @@ export default {
 
     delete(id) {
         return axiosInstance.delete(`${endpoint}/${id}`);
+    },
+
+    getImageUploadEndpoint(id) {
+        return `${baseUrl}/${endpoint}/${id}/upload`;
     },
 };

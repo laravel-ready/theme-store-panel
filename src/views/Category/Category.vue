@@ -84,7 +84,6 @@
 </template>
 
 <script>
-import baseUrl from "./../../helpers/BaseUrl";
 import store from "store";
 
 import * as FilePond from "filepond";
@@ -126,7 +125,7 @@ export default {
                     allowProcess: false,
                     maxFiles: 1,
                     server: {
-                        url: `${baseUrl}/api/theme-store/private/v1/category/${this.category.id}/upload`,
+                        url: CategoryService.getImageUploadEndpoint(this.category.id),
                         process: {
                             headers: {
                                 Authorization: `Bearer ${token}`,
