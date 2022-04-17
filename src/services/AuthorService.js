@@ -1,11 +1,11 @@
 import axiosInstance from "../helpers/HttpInterceptor";
-import baseUrl from "./../helpers/BaseUrl";
+import baseUrl from "../helpers/BaseUrl";
 
-const endpoint = "api/theme-store/private/v1/themes";
+const endpoint = "api/theme-store/private/v1/authors";
 
 export default {
-    getAll(page) {
-        return axiosInstance.get(endpoint + "?page=" + page);
+    getAll() {
+        return axiosInstance.get(`${endpoint}?all=true`);
     },
 
     get(id) {
