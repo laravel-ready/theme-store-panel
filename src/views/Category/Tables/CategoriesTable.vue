@@ -59,11 +59,11 @@
                     </td>
 
                     <td>
-                        <toggle v-model="row.item.featured" @change="featuredItem(row.item)"></toggle>
+                        <VueToggle title="" name="featuredToggle" :toggled="row.item.featured" @toggle="featuredItem(row.item)" />
                     </td>
 
                     <td class="text-right">
-                        <button class="btn btn-delete" @click="deleteItem(row.item.id)">
+                        <button class="btn btn-sm btn-delete" @click="deleteItem(row.item.id)">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -95,12 +95,12 @@
 </template>
 
 <script>
-import Toggle from "@vueform/toggle";
+import VueToggle from "vue-toggle-component";
 
 export default {
     name: "categories-table",
     components: {
-        Toggle,
+        VueToggle,
     },
     props: {
         type: {
@@ -135,6 +135,8 @@ export default {
 
         // update item featured statue
         featuredItem(item) {
+            item.featured = !item.featured;
+
             this.$emit("featured-item", item.id, item.featured);
         },
     },
