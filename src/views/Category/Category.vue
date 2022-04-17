@@ -94,7 +94,7 @@ import CategoryService from "@/services/CategoryService";
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
 export default {
-    name: "categories",
+    name: "theme",
     components: {},
     data() {
         return {
