@@ -116,31 +116,33 @@ export default {
 
     methods: {
         // setup and create filepond instance
-        initFilepond(firstInit = false) {
-            if (firstInit) {
-                const token = store.get("userAccessToken");
+        initFilepond(initWithResult = false) {
+            if (!initWithResult) {
+                return false;
+            }
 
-                FilePond.setOptions({
-                    instantUpload: true,
-                    allowProcess: false,
-                    maxFiles: 1,
-                    server: {
-                        url: CategoryService.getImageUploadEndpoint(this.category.id),
-                        process: {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
+            const token = store.get("userAccessToken");
+
+            FilePond.setOptions({
+                instantUpload: true,
+                allowProcess: false,
+                maxFiles: 1,
+                server: {
+                    url: CategoryService.getImageUploadEndpoint(this.category.id),
+                    process: {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
                         },
                     },
-                });
+                },
+            });
 
-                this.pond = FilePond.create({
-                    multiple: false,
-                    name: "filepond",
-                });
+            this.pond = FilePond.create({
+                multiple: false,
+                name: "filepond",
+            });
 
-                document.querySelector("#pond-container").appendChild(this.pond.element);
-            }
+            document.querySelector("#pond-container").appendChild(this.pond.element);
         },
 
         // get current category
