@@ -142,7 +142,7 @@ import NotificationService from "@/services/NotificationService";
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
 export default {
-    name: "theme",
+    name: "theme-page",
     components: {
         VueTagsInput,
     },

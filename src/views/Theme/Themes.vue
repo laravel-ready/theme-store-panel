@@ -48,7 +48,7 @@ import ThemesTable from "./Tables/ThemesTable";
 import ThemeService from "@/services/ThemeService";
 
 export default {
-    name: "themes",
+    name: "themes-page",
     components: {
         ThemesTable,
     },

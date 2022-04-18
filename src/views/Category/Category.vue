@@ -95,7 +95,7 @@ import NotificationService from "@/services/NotificationService";
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
 export default {
-    name: "theme",
+    name: "category-page",
     components: {},
     data() {
         return {

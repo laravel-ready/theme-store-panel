@@ -96,7 +96,7 @@ import CategoryService from "@/services/CategoryService";
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
 export default {
-    name: "categories",
+    name: "categories-page",
     components: {
         CategoriesTable,
     },

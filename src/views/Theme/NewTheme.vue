@@ -125,7 +125,7 @@ import AuthorService from "@/services/AuthorService";
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
 export default {
-    name: "new-theme",
+    name: "new-theme-page",
     components: { VueTagsInput },
 
     data() {
