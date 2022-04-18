@@ -20,7 +20,7 @@
                         >
                         </base-input>
 
-                        // <base-checkbox class="custom-control-alternative"> // <span class="text-muted">Remember me</span> // </base-checkbox>
+                        <!--<base-checkbox class="custom-control-alternative"> // <span class="text-muted">Remember me</span> // </base-checkbox>-->
 
                         <div class="text-center">
                             <button class="btn btn-primary mt-3" type="submit">Sign in</button>
@@ -64,13 +64,11 @@ export default {
     methods: {
         submitLoginForm(event) {
             event.preventDefault();
-
-            console.log(this.model);
             AuthService.login(this.model).then((response) => {
                 store.set("user", response.data.user);
                 store.set("userAccessToken", response.data.token);
 
-                this.$router.push("/");
+                this.$router.go();
             });
         },
     },
