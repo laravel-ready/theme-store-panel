@@ -90,6 +90,7 @@ import * as FilePond from "filepond";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
 import CategoryService from "@/services/CategoryService";
+import NotificationService from "@/services/NotificationService";
 
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
@@ -164,6 +165,8 @@ export default {
             e.preventDefault();
 
             CategoryService.update(this.categoryId, this.categoryModel).then(() => {
+                NotificationService.success("Theme updated successfully");
+
                 this.pond.removeFile();
 
                 this.category.image = null;

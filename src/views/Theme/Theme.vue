@@ -255,8 +255,6 @@ export default {
         submitThemeForm(e) {
             e.preventDefault();
 
-            NotificationService.error("Theme updated successfully");
-
             const authors = JSON.parse(JSON.stringify(this.inputSelectedTags)).map(function (item) {
                 return item.id;
             });
