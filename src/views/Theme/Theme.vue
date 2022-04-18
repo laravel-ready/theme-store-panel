@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 mt-2">
                                     <div class="form-group">
                                         <base-input alternative="" label="Description">
                                             <textarea
@@ -72,33 +72,47 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <label class="font-weight-bold"> Authors </label>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label class="font-weight-bold"> Authors </label>
 
-                                    <vue-tags-input
-                                        v-model="inputTagModel"
-                                        :tags="inputSelectedTags"
-                                        :allow-edit-tags="false"
-                                        :autocomplete-items="filteredItems"
-                                        :avoid-adding-duplicates="true"
-                                        @tags-changed="tagsChanged"
-                                        @before-adding-tag="beforeAddingTag"
-                                    >
-                                        <template v-slot:autocomplete-item="props">
-                                            <label @click="props.performAdd(props.item)" class="w-100 px-2 mt-1">
-                                                {{ props.item.name }}
-                                            </label>
-                                        </template>
-                                    </vue-tags-input>
+                                            <vue-tags-input
+                                                v-model="inputTagModel"
+                                                :tags="inputSelectedTags"
+                                                :allow-edit-tags="false"
+                                                :autocomplete-items="filteredItems"
+                                                :avoid-adding-duplicates="true"
+                                                @tags-changed="tagsChanged"
+                                                @before-adding-tag="beforeAddingTag"
+                                            >
+                                                <template v-slot:autocomplete-item="props">
+                                                    <label @click="props.performAdd(props.item)" class="w-100 px-2 mt-1">
+                                                        {{ props.item.name }}
+                                                    </label>
+                                                </template>
+                                            </vue-tags-input>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12">
+                                            <label class="font-weight-bold"> Image </label>
+
+                                            <div id="pond-container"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row mt-4">
-                                <div class="col-lg-12">
-                                    <label class="font-weight-bold"> Image </label>
+                                <div class="col">
+                                    <label class="font-weight-bold"> Preview </label>
 
-                                    <div id="pond-container"></div>
+                                    <img
+                                        class="img img-fluid img-thumbnail"
+                                        :src="themeModel && themeModel.cover ? themeModel.cover : 'img/theme/default-placeholder.png'"
+                                        alt="Theme image"
+                                    />
                                 </div>
                             </div>
 
@@ -117,18 +131,21 @@
 
 <script>
 import store from "store";
-
 import * as FilePond from "filepond";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import VueTagsInput from "@sipec/vue3-tags-input";
 
 import ThemeService from "@/services/ThemeService";
 import AuthorService from "@/services/AuthorService";
+import NotificationService from "@/services/NotificationService";
 
 FilePond.registerPlugin(FilePondPluginImagePreview);
 
 export default {
     name: "theme",
-    components: {},
+    components: {
+        VueTagsInput,
+    },
     data() {
         return {
             pond: null,
@@ -160,18 +177,11 @@ export default {
     },
 
     mounted() {
-        this.loadAuthors();
-
         this.initFilepond();
 
-        this.themeModel = {
-            name: "thm",
-            description: "dsa dasd as",
-            vendor: "venn",
-            group: "admin",
-            // status: true,
-            authors: [],
-        };
+        this.loadAuthors();
+
+        this.getTheme(true);
     },
 
     methods: {
@@ -204,10 +214,20 @@ export default {
 
         // setup and create filepond instance
         initFilepond() {
+            const token = store.get("userAccessToken");
+
             FilePond.setOptions({
                 instantUpload: false,
                 allowProcess: false,
                 maxFiles: 1,
+                server: {
+                    url: ThemeService.getImageUploadEndpoint(this.$route.params.id),
+                    process: {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
+                },
             });
 
             this.pond = FilePond.create({
@@ -218,32 +238,38 @@ export default {
             document.querySelector("#pond-container").appendChild(this.pond.element);
         },
 
-        // submit category form
+        getTheme() {
+            ThemeService.get(this.$route.params.id).then((response) => {
+                this.themeModel = response.data.result;
+                this.themeModel.authors = response.data.result.authors.map((item) => {
+                    item.text = item.name;
+
+                    return item;
+                });
+
+                this.inputSelectedTags = this.themeModel.authors;
+            });
+        },
+
+        // submit form
         submitThemeForm(e) {
             e.preventDefault();
+
+            NotificationService.error("Theme updated successfully");
 
             const authors = JSON.parse(JSON.stringify(this.inputSelectedTags)).map(function (item) {
                 return item.id;
             });
 
             this.themeModel.authors = authors;
+            this.themeModel.cover = null;
 
-            ThemeService.create(this.themeModel).then((response) => {
-                const themeId = response.data.result.id,
-                    token = store.get("userAccessToken");
-
-                FilePond.setOptions({
-                    server: {
-                        url: ThemeService.getImageUploadEndpoint(themeId),
-                        process: {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        },
-                    },
-                });
-
+            ThemeService.update(this.$route.params.id, this.themeModel).then(() => {
                 this.pond.processFile().then(() => {
+                    NotificationService.success("Theme updated successfully");
+
+                    this.getTheme();
+
                     this.pond.removeFile();
                 });
             });

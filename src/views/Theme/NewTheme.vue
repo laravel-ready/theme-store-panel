@@ -162,15 +162,6 @@ export default {
         this.loadAuthors();
 
         this.initFilepond();
-
-        this.themeModel = {
-            name: "thm",
-            description: "dsa dasd as",
-            vendor: "venn",
-            group: "admin",
-            // status: true,
-            authors: [],
-        };
     },
 
     methods: {
