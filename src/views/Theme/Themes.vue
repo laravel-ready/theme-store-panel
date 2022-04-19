@@ -15,7 +15,7 @@
                         <p class="text-white mt-0 mb-5">Manage all themes, update details, add or update relases and relase notes and other options.</p>
 
                         <router-link :to="{ name: 'new-theme' }">
-                            <button class="btn btn-default" @click="showFormModal()">
+                            <button class="btn btn-default">
                                 <i class="fas fa-plus-circle text-success mr-2"></i>
                                 New Theme
                             </button>
