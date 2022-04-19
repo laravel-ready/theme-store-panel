@@ -167,7 +167,7 @@ export default {
     methods: {
         // load all authors for tags input
         loadAuthors() {
-            AuthorService.getAll().then((response) => {
+            AuthorService.getAll(0, true).then((response) => {
                 this.authorsList = response.data.result.map(function (item) {
                     item.text = item.name;
 

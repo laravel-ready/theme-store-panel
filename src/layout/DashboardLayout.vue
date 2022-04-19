@@ -15,7 +15,7 @@
                 <sidebar-item
                     :link="{
                         name: 'Themes',
-                        icon: 'ni ni-planet text-orange',
+                        icon: 'ni ni-planet',
                         path: '/themes',
                     }"
                 />
@@ -23,8 +23,16 @@
                 <sidebar-item
                     :link="{
                         name: 'Categories',
-                        icon: 'ni ni-tag text-blue',
+                        icon: 'ni ni-tag',
                         path: '/categories',
+                    }"
+                />
+
+                <sidebar-item
+                    :link="{
+                        name: 'Authors',
+                        icon: 'ni ni-email-83',
+                        path: '/authors',
                     }"
                 />
             </template>

@@ -187,7 +187,7 @@ export default {
     methods: {
         // load all authors for tags input
         loadAuthors() {
-            AuthorService.getAll().then((response) => {
+            AuthorService.getAll(0, true).then((response) => {
                 this.authorsList = response.data.result.map(function (item) {
                     item.text = item.name;
 
@@ -260,16 +260,19 @@ export default {
             });
 
             this.themeModel.authors = authors;
-            this.themeModel.cover = null;
 
             ThemeService.update(this.$route.params.id, this.themeModel).then(() => {
                 this.pond.processFile().then(() => {
-                    NotificationService.success("Theme updated successfully");
-
-                    this.getTheme();
+                    this.themeModel.cover = null;
 
                     this.pond.removeFile();
+
+                    this.getTheme();
                 });
+
+                this.getTheme();
+
+                NotificationService.success("Theme updated successfully");
             });
         },
     },
