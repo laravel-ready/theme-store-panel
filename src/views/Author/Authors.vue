@@ -133,9 +133,6 @@ export default {
                 .then((response) => {
                     this.authorsData = response.data.result;
                 })
-                .catch((error) => {
-                    console.log(error);
-                })
                 .finally(() => {
                     this.authorsLoading = false;
                 });

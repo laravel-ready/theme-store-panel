@@ -33,6 +33,7 @@
                 <template v-slot:columns>
                     <th>Author</th>
                     <th>Contact</th>
+                    <th>Themes</th>
                     <th>Is Featured</th>
                     <th></th>
                 </template>
@@ -56,6 +57,12 @@
 
                     <td>
                         {{ row.item.contact }}
+                    </td>
+
+                    <td>
+                        <button class="btn btn-secondary border rounded-pill shadow-none">
+                            {{ row.item.themes_count }}
+                        </button>
                     </td>
 
                     <td>

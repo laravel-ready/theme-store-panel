@@ -4,7 +4,6 @@ import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
 import Dashboard from "../views/Dashboard.vue";
-import NewTheme from "../views/Theme/NewTheme.vue";
 import Login from "../views/Login.vue";
 
 import Themes from "../views/Theme/Themes.vue";
@@ -37,7 +36,7 @@ const routes = [
             {
                 path: "/themes/new",
                 name: "new-theme",
-                components: { default: NewTheme },
+                components: { default: Theme },
             },
             {
                 path: "/themes/:id",

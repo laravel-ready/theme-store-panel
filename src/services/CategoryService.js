@@ -4,8 +4,8 @@ import baseUrl from "./../helpers/BaseUrl";
 const endpoint = "api/theme-store/private/v1/categories";
 
 export default {
-    getAll(page) {
-        return axiosInstance.get(endpoint + "?page=" + page);
+    getAll(page = 1, all = false) {
+        return axiosInstance.get(`${endpoint}?page=${page}&all=${all}`);
     },
 
     get(id) {
