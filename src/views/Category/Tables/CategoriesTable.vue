@@ -33,6 +33,7 @@
                 <template v-slot:columns>
                     <th>Category</th>
                     <th>Description</th>
+                    <th>Themes</th>
                     <th>Is Featured</th>
                     <th></th>
                 </template>
@@ -56,6 +57,12 @@
 
                     <td class="text-break text-truncate" style="width: 100px">
                         {{ row.item.description.length > 50 ? row.item.description.substring(0, 50) + "..." : row.item.description }}
+                    </td>
+
+                    <td>
+                        <button class="btn btn-secondary border rounded-pill shadow-none">
+                            {{ row.item.themes_count }}
+                        </button>
                     </td>
 
                     <td>
