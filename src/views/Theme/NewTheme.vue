@@ -114,15 +114,12 @@
 </template>
 
 <script>
-import * as FilePond from "filepond";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import store from "store";
 import VueTagsInput from "@sipec/vue3-tags-input";
 
 import ThemeService from "@/services/ThemeService";
 import AuthorService from "@/services/AuthorService";
-
-FilePond.registerPlugin(FilePondPluginImagePreview);
+import FilepondService from "@/services/FilepondService";
 
 export default {
     name: "new-theme-page",
@@ -194,16 +191,7 @@ export default {
 
         // setup and create filepond instance
         initFilepond() {
-            FilePond.setOptions({
-                instantUpload: false,
-                allowProcess: false,
-                maxFiles: 1,
-            });
-
-            this.pond = FilePond.create({
-                multiple: false,
-                name: "filepond",
-            });
+            this.pond = FilepondService.create();
 
             document.querySelector("#pond-container").appendChild(this.pond.element);
         },
@@ -222,7 +210,7 @@ export default {
                 const themeId = response.data.result.id,
                     token = store.get("userAccessToken");
 
-                FilePond.setOptions({
+                FilepondService.setOptions({
                     server: {
                         url: ThemeService.getImageUploadEndpoint(themeId),
                         process: {

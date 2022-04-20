@@ -88,9 +88,23 @@
                                                 @before-adding-tag="beforeAddingTag"
                                             >
                                                 <template v-slot:autocomplete-item="props">
-                                                    <label @click="props.performAdd(props.item)" class="w-100 px-2 mt-1">
-                                                        {{ props.item.name }}
-                                                    </label>
+                                                    <div class="row mx-2 py-1">
+                                                        <div class="col-lg-1">
+                                                            <img
+                                                                class="rounded"
+                                                                :src="props.item.avatar ? props.item.avatar : 'img/theme/default-placeholder.png'"
+                                                                alt="Author Avatar"
+                                                                height="30"
+                                                                width="30"
+                                                            />
+                                                        </div>
+
+                                                        <div class="col-lg-11">
+                                                            <label @click="props.performAdd(props.item)" class="w-100 px-2 mt-1">
+                                                                {{ props.item.name }}
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </template>
                                             </vue-tags-input>
                                         </div>
@@ -131,15 +145,12 @@
 
 <script>
 import store from "store";
-import * as FilePond from "filepond";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import VueTagsInput from "@sipec/vue3-tags-input";
 
 import ThemeService from "@/services/ThemeService";
 import AuthorService from "@/services/AuthorService";
 import NotificationService from "@/services/NotificationService";
-
-FilePond.registerPlugin(FilePondPluginImagePreview);
+import FilepondService from "@/services/FilepondService";
 
 export default {
     name: "theme-page",
@@ -216,10 +227,7 @@ export default {
         initFilepond() {
             const token = store.get("userAccessToken");
 
-            FilePond.setOptions({
-                instantUpload: false,
-                allowProcess: false,
-                maxFiles: 1,
+            FilepondService.setOptions({
                 server: {
                     url: ThemeService.getImageUploadEndpoint(this.$route.params.id),
                     process: {
@@ -230,10 +238,7 @@ export default {
                 },
             });
 
-            this.pond = FilePond.create({
-                multiple: false,
-                name: "filepond",
-            });
+            this.pond = FilepondService.create();
 
             document.querySelector("#pond-container").appendChild(this.pond.element);
         },

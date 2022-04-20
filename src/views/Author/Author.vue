@@ -10,9 +10,7 @@
             <div class="container-fluid d-flex align-items-center">
                 <div class="row">
                     <div class="col-lg-7 col-md-10">
-                        <h1 class="display-2 text-white">{{ category ? category.name : "" }}</h1>
-
-                        <p class="text-white mt-0 mb-5">{{ category ? category.description : "" }}</p>
+                        <h1 class="display-2 text-white">{{ author ? author.name : "" }}</h1>
                     </div>
                 </div>
             </div>
@@ -79,13 +77,9 @@
 <script>
 import store from "store";
 
-import * as FilePond from "filepond";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-
 import AuthorService from "@/services/AuthorService";
 import NotificationService from "@/services/NotificationService";
-
-FilePond.registerPlugin(FilePondPluginImagePreview);
+import FilepondService from "@/services/FilepondService";
 
 export default {
     name: "author-page",
@@ -116,10 +110,7 @@ export default {
 
             const token = store.get("userAccessToken");
 
-            FilePond.setOptions({
-                instantUpload: false,
-                allowProcess: false,
-                maxFiles: 1,
+            FilepondService.setOptions({
                 server: {
                     url: AuthorService.getImageUploadEndpoint(this.authorModel.id),
                     process: {
@@ -130,10 +121,7 @@ export default {
                 },
             });
 
-            this.pond = FilePond.create({
-                multiple: false,
-                name: "filepond",
-            });
+            this.pond = FilepondService.create();
 
             document.querySelector("#pond-container").appendChild(this.pond.element);
         },

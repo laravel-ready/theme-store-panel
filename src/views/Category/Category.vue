@@ -86,13 +86,9 @@
 <script>
 import store from "store";
 
-import * as FilePond from "filepond";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-
 import CategoryService from "@/services/CategoryService";
 import NotificationService from "@/services/NotificationService";
-
-FilePond.registerPlugin(FilePondPluginImagePreview);
+import FilepondService from "@/services/FilepondService";
 
 export default {
     name: "category-page",
@@ -124,10 +120,7 @@ export default {
 
             const token = store.get("userAccessToken");
 
-            FilePond.setOptions({
-                instantUpload: true,
-                allowProcess: false,
-                maxFiles: 1,
+            FilepondService.setOptions({
                 server: {
                     url: CategoryService.getImageUploadEndpoint(this.category.id),
                     process: {
@@ -138,10 +131,7 @@ export default {
                 },
             });
 
-            this.pond = FilePond.create({
-                multiple: false,
-                name: "filepond",
-            });
+            this.pond = FilepondService.create();
 
             document.querySelector("#pond-container").appendChild(this.pond.element);
         },

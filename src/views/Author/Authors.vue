@@ -86,13 +86,10 @@
 <script>
 import AuthorsTable from "./Tables/AuthorsTable";
 
-import * as FilePond from "filepond";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import store from "store";
 
 import AuthorService from "@/services/AuthorService";
-
-FilePond.registerPlugin(FilePondPluginImagePreview);
+import FilepondService from "@/services/FilepondService";
 
 export default {
     name: "authors-page",
@@ -124,16 +121,7 @@ export default {
     methods: {
         // setup and create filepond instance
         initFilepond() {
-            FilePond.setOptions({
-                instantUpload: false,
-                allowProcess: false,
-                maxFiles: 1,
-            });
-
-            this.pond = FilePond.create({
-                multiple: false,
-                name: "filepond",
-            });
+            this.pond = FilepondService.create();
 
             document.querySelector("#pond-container").appendChild(this.pond.element);
         },
@@ -171,7 +159,7 @@ export default {
                 const authorId = response.data.result.id,
                     token = store.get("userAccessToken");
 
-                FilePond.setOptions({
+                FilepondService.setOptions({
                     server: {
                         url: AuthorService.getImageUploadEndpoint(authorId),
                         process: {

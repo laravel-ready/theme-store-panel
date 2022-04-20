@@ -87,13 +87,10 @@
 <script>
 import CategoriesTable from "./Tables/CategoriesTable";
 
-import * as FilePond from "filepond";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import store from "store";
 
 import CategoryService from "@/services/CategoryService";
-
-FilePond.registerPlugin(FilePondPluginImagePreview);
+import FilepondService from "@/services/FilepondService";
 
 export default {
     name: "categories-page",
@@ -125,16 +122,7 @@ export default {
     methods: {
         // setup and create filepond instance
         initFilepond() {
-            FilePond.setOptions({
-                instantUpload: false,
-                allowProcess: false,
-                maxFiles: 1,
-            });
-
-            this.pond = FilePond.create({
-                multiple: false,
-                name: "filepond",
-            });
+            this.pond = FilepondService.create();
 
             document.querySelector("#pond-container").appendChild(this.pond.element);
         },
@@ -166,7 +154,7 @@ export default {
                 const categoryId = response.data.result.id,
                     token = store.get("userAccessToken");
 
-                FilePond.setOptions({
+                FilepondService.setOptions({
                     server: {
                         url: CategoryService.getImageUploadEndpoint(categoryId),
                         process: {
