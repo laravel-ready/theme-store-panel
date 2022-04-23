@@ -8,6 +8,7 @@ import Login from "../views/Login.vue";
 
 import Themes from "../views/Theme/Themes.vue";
 import Theme from "../views/Theme/Theme.vue";
+import Releases from "../views/Release/Releases.vue";
 
 import Categories from "../views/Category/Categories.vue";
 import Category from "../views/Category/Category.vue";
@@ -28,6 +29,8 @@ const routes = [
                 name: "dashboard",
                 components: { default: Dashboard },
             },
+
+            // themes
             {
                 path: "/themes",
                 name: "themes",
@@ -43,6 +46,15 @@ const routes = [
                 name: "theme",
                 component: Theme,
             },
+
+            // theme releases
+            {
+                path: "/themes/:id/releases",
+                name: "releases",
+                component: Releases,
+            },
+
+            // categories
             {
                 path: "/categories",
                 name: "categories",
@@ -53,6 +65,8 @@ const routes = [
                 name: "category",
                 component: Category,
             },
+
+            // authors
             {
                 path: "/authors",
                 name: "authors",

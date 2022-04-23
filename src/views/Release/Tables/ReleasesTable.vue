@@ -31,46 +31,39 @@
                 v-if="content.data"
             >
                 <template v-slot:columns>
-                    <th>Theme</th>
-                    <th>Vendor</th>
-                    <th>Group</th>
-                    <th>Releases</th>
+                    <th>Version</th>
+                    <th>File Size</th>
+                    <th>Notes</th>
                     <th>Is Active</th>
-                    <th>Is Featured</th>
+                    <th>Release Date</th>
                     <th></th>
                 </template>
 
                 <template v-slot:default="row">
                     <th scope="row">
                         <div class="media align-items-center">
-                            <router-link :to="{ name: 'category', params: { id: row.item.id } }" class="avatar rounded-circle mr-3">
-                                <img :src="row.item.cover ? row.item.cover : 'img/theme/default-placeholder.png'" alt="Category image" />
-                            </router-link>
-
                             <div class="media-body">
                                 <span class="name mb-0 text-sm">
-                                    <router-link :to="{ name: 'theme', params: { id: row.item.id } }">
-                                        {{ `${row.item.vendor}` }}
-                                    </router-link>
+                                    {{ `v${row.item.version}` }}
+
+                                    <span class="badge badge-primary ml-2" v-if="latestRelease && latestRelease.id == row.item.id"> Current </span>
                                 </span>
                             </div>
                         </div>
                     </th>
 
                     <td>
-                        {{ row.item.vendor }}
+                        {{ row.item.file_size }}
                     </td>
 
                     <td>
-                        {{ row.item.group }}
-                    </td>
-
-                    <td>
-                        <router-link :to="{ name: 'releases', params: { id: row.item.id } }">
-                            <button class="btn btn-link border rounded-pill shadow-none" title="Total Releases: {{ row.item.releases_count }}">
-                                {{ row.item.releases_count }}
-                            </button>
-                        </router-link>
+                        <button
+                            class="btn btn-secondary border rounded-pill shadow-none"
+                            @click="showDetails(row.item)"
+                            :title="`Show release notes for v${row.item.version}`"
+                        >
+                            <i class="fas fa-info text-primary"></i>
+                        </button>
                     </td>
 
                     <td>
@@ -78,7 +71,7 @@
                     </td>
 
                     <td>
-                        <VueToggle title="" name="featureToggle" :toggled="row.item.featured" @toggle="featuredItem(row.item)" />
+                        {{ row.item.created_at }}
                     </td>
 
                     <td class="text-right">
@@ -89,9 +82,9 @@
                                 </a>
                             </template>
 
-                            <router-link :to="{ name: 'releases', params: { id: row.item.id } }">
-                                <li class="dropdown-item">Add Release</li>
-                            </router-link>
+                            <li class="dropdown-item text-primary" @click="showUpdateFormModal(row.item)">Update Details</li>
+
+                            <li class="dropdown-item text-primary" @click="downloadItem(row.item)">Download</li>
 
                             <li class="dropdown-item text-danger" @click="deleteItem(row.item.id)">Delete</li>
                         </base-dropdown>
@@ -118,7 +111,7 @@
 import VueToggle from "vue-toggle-component";
 
 export default {
-    name: "themes-table",
+    name: "releases-table",
     components: {
         VueToggle,
     },
@@ -135,6 +128,10 @@ export default {
         isLoading: {
             type: Boolean,
             default: false,
+        },
+        latestRelease: {
+            type: Object,
+            default: null,
         },
     },
 
@@ -153,11 +150,19 @@ export default {
             this.$emit("delete-item", id);
         },
 
-        // update item featured status
-        featuredItem(item) {
-            item.featured = !item.featured;
+        // show notes
+        showDetails(item) {
+            this.$emit("show-item", item);
+        },
 
-            this.$emit("featured-item", item.id, item.featured);
+        // show update form
+        showUpdateFormModal(item) {
+            this.$emit("show-update-form-modal", item);
+        },
+
+        // download item
+        downloadItem(item) {
+            this.$emit("download-item", item);
         },
 
         // update item status

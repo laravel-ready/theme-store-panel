@@ -64,7 +64,7 @@ export default {
     },
 
     methods: {
-        // load categories
+        // load items
         loadThemes(page = 1) {
             if (!this.themesLoading) {
                 ThemeService.getAll(page).then((response) => {
