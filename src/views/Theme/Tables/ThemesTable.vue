@@ -67,8 +67,12 @@
 
                     <td>
                         <router-link :to="{ name: 'releases', params: { id: row.item.id } }">
-                            <button class="btn btn-link border rounded-pill shadow-none" title="Total Releases: {{ row.item.releases_count }}">
+                            <button class="btn btn-link border rounded-pill shadow-none" :title="'Total Releases: ' + row.item.releases_count">
                                 {{ row.item.releases_count }}
+
+                                <button class="btn btn-sm shadow-none" title="Add new release">
+                                    <i class="fas fa-plus ml-2"></i>
+                                </button>
                             </button>
                         </router-link>
                     </td>

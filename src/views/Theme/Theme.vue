@@ -13,6 +13,13 @@
                         <h1 class="display-2 text-white">{{ themeModel.name ? themeModel.name : "New Theme" }}</h1>
 
                         <p class="text-white mt-0 mb-5">{{ themeModel.description ? themeModel.description : "" }}</p>
+
+                        <router-link :to="{ name: 'releases', params: { id: themeId } }" v-if="themeId">
+                            <button class="btn btn-default">
+                                <i class="fas fa-plus-circle text-success mr-2"></i>
+                                Add New Release
+                            </button>
+                        </router-link>
                     </div>
                 </div>
             </div>

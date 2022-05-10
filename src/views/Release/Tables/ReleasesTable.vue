@@ -58,11 +58,11 @@
 
                     <td>
                         <button
-                            class="btn btn-secondary border rounded-pill shadow-none"
+                            class="btn btn-sm px-23 btn-link shadow-none"
                             @click="showDetails(row.item)"
                             :title="`Show release notes for v${row.item.version}`"
                         >
-                            <i class="fas fa-info text-primary"></i>
+                            Release Notes for v{{ row.item.version }}
                         </button>
                     </td>
 

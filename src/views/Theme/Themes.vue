@@ -6,6 +6,7 @@
         >
             <!-- Mask -->
             <span class="mask bg-gradient-success opacity-8"></span>
+
             <!-- Header container -->
             <div class="container-fluid d-flex align-items-center">
                 <div class="row">
