@@ -46,7 +46,7 @@
                                 <span class="name mb-0 text-sm">
                                     {{ `v${row.item.version}` }}
 
-                                    <span class="badge badge-primary ml-2" v-if="latestRelease && latestRelease.id == row.item.id"> Current </span>
+                                    <span class="badge badge-primary ml-2 pt-2" v-if="latestRelease && latestRelease.id == row.item.id"> Current </span>
                                 </span>
                             </div>
                         </div>
