@@ -50,7 +50,7 @@
                             <div class="media-body">
                                 <span class="name mb-0 text-sm">
                                     <router-link :to="{ name: 'theme', params: { id: row.item.id } }">
-                                        {{ `${row.item.vendor}` }}
+                                        {{ `${row.item.name}` }}
                                     </router-link>
                                 </span>
                             </div>
