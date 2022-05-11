@@ -13,7 +13,7 @@
                             <base-input
                                 alternative=""
                                 label="Version"
-                                placeholder="Version"
+                                placeholder="Version eg: 1.2.3"
                                 input-classes="form-control-alternative"
                                 v-model="releaseModel.version"
                             />
@@ -63,7 +63,7 @@
                             <base-input
                                 alternative=""
                                 label="Version"
-                                placeholder="Version"
+                                placeholder="Version eg: 1.2.3"
                                 input-classes="form-control-alternative"
                                 v-model="releaseModel.version"
                             />

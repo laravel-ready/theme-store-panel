@@ -32,7 +32,9 @@
             >
                 <template v-slot:columns>
                     <th>Version</th>
+                    <th>File Name</th>
                     <th>File Size</th>
+                    <th>Downloads</th>
                     <th>Notes</th>
                     <th>Is Active</th>
                     <th>Release Date</th>
@@ -53,7 +55,17 @@
                     </th>
 
                     <td>
+                        <button class="btn btn-link btn-sm px-0" @click="downloadItem(row.item)">
+                            {{ row.item.only_file_name }}
+                        </button>
+                    </td>
+
+                    <td>
                         {{ row.item.file_size }}
+                    </td>
+
+                    <td>
+                        {{ row.item.download_count_all_times[0] ? row.item.download_count_all_times[0].total_downloads : 0 }}
                     </td>
 
                     <td>
