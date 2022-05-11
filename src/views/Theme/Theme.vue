@@ -67,6 +67,18 @@
 
                                 <div class="col-lg-12 mt-2">
                                     <div class="form-group">
+                                        <base-input
+                                            alternative=""
+                                            label="Preview Link"
+                                            placeholder="Theme Preview Link"
+                                            input-classes="form-control-alternative"
+                                            v-model="themeModel.preview_link"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 mt-2">
+                                    <div class="form-group">
                                         <base-input alternative="" label="Description">
                                             <textarea
                                                 rows="6"
@@ -210,6 +222,7 @@ export default {
                 description: "",
                 vendor: "",
                 group: "",
+                preview_link: null,
                 status: true,
                 authors: [],
                 categories: [],
