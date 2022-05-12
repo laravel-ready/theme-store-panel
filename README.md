@@ -1,5 +1,7 @@
 ## Credits
 
+This repo contains only static assets for the [theme-store](https://github.com/laravel-ready/theme-store) admin panel.
+
 ### Images from unsplash.com
 - Photo by <a href="https://unsplash.com/@ryanquintal?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ryan Quintal</a> on <a href="https://unsplash.com/s/photos/lego?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 - Photo by <a href="https://unsplash.com/@ryanquintal?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ryan Quintal</a> on <a href="https://unsplash.com/s/photos/lego?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
