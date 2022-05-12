@@ -13,6 +13,10 @@
                     </div>
 
                     <div class="col-lg-12">
+                        <base-input alternative="" label="Title" placeholder="Title" input-classes="form-control-alternative" v-model="authorModel.title" />
+                    </div>
+
+                    <div class="col-lg-12">
                         <base-input
                             alternative=""
                             label="Contact"
@@ -106,6 +110,7 @@ export default {
             authorModel: {
                 name: "",
                 contact: "",
+                title: "",
             },
 
             isOpenFormModal: false,

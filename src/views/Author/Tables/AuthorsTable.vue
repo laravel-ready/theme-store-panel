@@ -32,6 +32,7 @@
             >
                 <template v-slot:columns>
                     <th>Author</th>
+                    <th>Title</th>
                     <th>Contact</th>
                     <th>Themes</th>
                     <th>Is Featured</th>
@@ -54,6 +55,10 @@
                             </div>
                         </div>
                     </th>
+
+                    <td>
+                        {{ row.item.title || "-" }}
+                    </td>
 
                     <td>
                         {{ row.item.contact }}
