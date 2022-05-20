@@ -66,14 +66,62 @@
                                 </div>
 
                                 <div class="col-lg-12 mt-2">
-                                    <div class="form-group">
-                                        <base-input
-                                            alternative=""
-                                            label="Preview Link"
-                                            placeholder="Theme Preview Link"
-                                            input-classes="form-control-alternative"
-                                            v-model="themeModel.preview_link"
-                                        />
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <base-input
+                                                    alternative=""
+                                                    label="Preview Link"
+                                                    placeholder="Theme Preview Link"
+                                                    input-classes="form-control-alternative"
+                                                    v-model="themeModel.preview_link"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <VueToggle
+                                                title="Publish Status"
+                                                name="status"
+                                                class="mt-4"
+                                                :toggled="themeModel.status"
+                                                v-model="themeModel.status"
+                                                @toggle="statusToggle()"
+                                                v-if="themeModel.status"
+                                            />
+
+                                            <VueToggle
+                                                title="Publish Status"
+                                                name="status"
+                                                class="mt-4"
+                                                :toggled="themeModel.status"
+                                                v-model="themeModel.status"
+                                                @toggle="statusToggle()"
+                                                v-if="!themeModel.status"
+                                            />
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <VueToggle
+                                                title="Is Premium"
+                                                name="is_premium"
+                                                class="mt-4"
+                                                :toggled="themeModel.is_premium"
+                                                v-model="themeModel.is_premium"
+                                                @toggle="isPremiumToggle()"
+                                                v-if="themeModel.is_premium"
+                                            />
+
+                                            <VueToggle
+                                                title="Is Premium"
+                                                name="is_premium"
+                                                class="mt-4"
+                                                :toggled="themeModel.is_premium"
+                                                v-model="themeModel.is_premium"
+                                                @toggle="isPremiumToggle()"
+                                                v-if="!themeModel.is_premium"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -199,6 +247,7 @@
 <script>
 import store from "store";
 import VueTagsInput from "@sipec/vue3-tags-input";
+import VueToggle from "vue-toggle-component";
 
 import ThemeService from "@/services/ThemeService";
 import AuthorService from "@/services/AuthorService";
@@ -210,6 +259,7 @@ export default {
     name: "theme-page",
     components: {
         VueTagsInput,
+        VueToggle,
     },
     data() {
         return {
@@ -223,9 +273,10 @@ export default {
                 vendor: "",
                 group: "",
                 preview_link: null,
-                status: true,
+                status: false,
                 authors: [],
                 categories: [],
+                is_premium: false,
             },
 
             authorTagModel: "",
@@ -278,6 +329,14 @@ export default {
     },
 
     methods: {
+        statusToggle() {
+            this.themeModel.status = !this.themeModel.status;
+        },
+
+        isPremiumToggle() {
+            this.themeModel.is_premium = !this.themeModel.is_premium;
+        },
+
         // #region Author
 
         // load all authors for tags input
@@ -406,10 +465,10 @@ export default {
 
                         this.pond.removeFile();
 
-                        this.getTheme();
+                        this.getTheme(this.themeId);
                     });
 
-                    this.getTheme();
+                    this.getTheme(this.themeId);
 
                     NotificationService.success("Theme updated successfully");
                 });

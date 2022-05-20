@@ -37,6 +37,7 @@
                         @deleteItem="deleteItem"
                         @featuredItem="setFeatured"
                         @statusItem="setStatus"
+                        @premiumItem="setPremium"
                     ></themes-table>
                 </div>
             </div>
@@ -92,6 +93,13 @@ export default {
         setStatus(id, state) {
             ThemeService.patch(id, {
                 status: state,
+            });
+        },
+
+        // update item premium status
+        setPremium(id, state) {
+            ThemeService.patch(id, {
+                is_premium: state,
             });
         },
 

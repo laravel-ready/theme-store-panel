@@ -37,6 +37,7 @@
                     <th>Releases</th>
                     <th>Is Active</th>
                     <th>Is Featured</th>
+                    <th>Is Premium</th>
                     <th></th>
                 </template>
 
@@ -83,6 +84,10 @@
 
                     <td>
                         <VueToggle title="" name="featureToggle" :toggled="row.item.featured" @toggle="featuredItem(row.item)" />
+                    </td>
+
+                    <td>
+                        <VueToggle title="" name="premiumToggle" :toggled="row.item.is_premium" @toggle="premiumItem(row.item)" />
                     </td>
 
                     <td class="text-right">
@@ -169,6 +174,13 @@ export default {
             item.status = !item.status;
 
             this.$emit("status-item", item.id, item.status);
+        },
+
+        // update premium status
+        premiumItem(item) {
+            item.is_premium = !item.is_premium;
+
+            this.$emit("premium-item", item.id, item.is_premium);
         },
     },
 };
